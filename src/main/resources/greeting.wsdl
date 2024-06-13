@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://example.com/greeting" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://example.com/greeting" targetNamespace="http://example.com/greeting">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://example.com/greeting">
+
+    <xs:element name="getGreetingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getGreetingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="greeting" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getGreetingResponse">
+    <wsdl:part element="tns:getGreetingResponse" name="getGreetingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getGreetingRequest">
+    <wsdl:part element="tns:getGreetingRequest" name="getGreetingRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="GreetingPort">
+    <wsdl:operation name="getGreeting">
+      <wsdl:input message="tns:getGreetingRequest" name="getGreetingRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getGreetingResponse" name="getGreetingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GreetingPortSoap11" type="tns:GreetingPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getGreeting">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getGreetingRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getGreetingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GreetingPortService">
+    <wsdl:port binding="tns:GreetingPortSoap11" name="GreetingPortSoap11">
+      <soap:address location="http://localhost:8080/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
